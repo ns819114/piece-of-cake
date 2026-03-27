@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piece of Cake | Die Philosophie des Teilens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a2e;
+            --text-primary: #e8e6e3;
+            --text-secondary: #a09b8c;
+            --accent-gold: #f7931a;
+            --accent-cake: #d4a574;
+            --accent-purple: #6366f1;
+            --border: #2a2a3a;
+            --gradient-gold: linear-gradient(135deg, #f7931a 0%, #d4a574 100%);
+            --gradient-purple: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(247, 147, 26, 0.15) 0%, transparent 70%);
+            z-index: 0;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-thesis {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--accent-cake);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-secondary);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Main Content */
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 6rem;
+            padding-top: 6rem;
+        }
+
+        section h2 {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        section h2 .section-number {
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        section h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            color: var(--accent-cake);
+            margin: 2.5rem 0 1rem;
+        }
+
+        section p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        section strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Philosophy Box */
+        .philosophy-box {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-gold);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0 1rem 1rem 0;
+        }
+
+        .philosophy-box p {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg-secondary);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--accent-gold);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover td {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        /* Lists */
+        .feature-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        /* Deep Links Section */
+        .deep-links {
+            background: var(--bg-secondary);
+            border-radius: 1rem;
+            padding: 3rem;
+            margin-top: 4rem;
+        }
+
+        .deep-links h2 {
+            border-bottom: none;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .link-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .link-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(247, 147, 26, 0.1);
+        }
+
+        .link-card h4 {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .link-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .link-card .category {
+            display: inline-block;
+            background: var(--bg-primary);
+            color: var(--accent-purple);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Epilog */
+        .epilog {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--gradient-gold);
+            border-radius: 1rem;
+            margin: 4rem 0;
+        }
+
+        .epilog h2 {
+            border-bottom: none;
+            justify-content: center;
+            color: var(--bg-primary);
+            -webkit-text-fill-color: var(--bg-primary);
+        }
+
+        .epilog p {
+            color: rgba(10, 10, 15, 0.8);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .final-quote {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--bg-primary);
+            margin-top: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 5rem 1.5rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            section {
+                padding-top: 4rem;
+                margin-bottom: 4rem;
+            }
+
+            .deep-links {
+                padding: 2rem 1.5rem;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
+        section:nth-child(4) { animation-delay: 0.4s; }
+        section:nth-child(5) { animation-delay: 0.5s; }
+        section:nth-child(6) { animation-delay: 0.6s; }
+        section:nth-child(7) { animation-delay: 0.7s; }
+        section:nth-child(8) { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🍰 ⚡</div>
+            <ul class="nav-links">
+                <li><a href="#teilbarkeit">Teilbarkeit</a></li>
+                <li><a href="#philosophie">Philosophie</a></li>
+                <li><a href="#semantik">Semantik</a></li>
+                <li><a href="#mathematik">Mathematik</a></li>
+                <li><a href="#kultur">Kultur</a></li>
+                <li><a href="#zeit">Zeit</a></li>
+                <li><a href="#synthese">Synthese</a></li>
+                <li><a href="#links">Ressourcen</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-icon">🍰 ⚡ 🪙</div>
+            <h1>Piece of <span>Cake</span></h1>
+            <p class="hero-subtitle">Eine philosophische Abhandlung über die fundamentale Verbindung zwischen Kuchen und dem kleinsten Wert der digitalen Revolution</p>
+            <div class="hero-thesis">
+                "Was verbindet einen Kuchen mit einem Satoshi? Die fundamentale menschliche Erfahrung der Teilbarkeit, des Wertes und der Demokratisierung von Besitz."
+            </div>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </header>
+
+    <main>
+        <section id="teilbarkeit" class="fade-in">
+            <h2><span class="section-number">I.</span> Die Teilbarkeit als fundamentales Prinzip</h2>
+            
+            <h3>Der Kuchen als Urmetapher</h3>
+            <p>Seit Jahrtausenden dient der Kuchen als universelle Metapher für das Teilen. Wenn wir sagen <strong>"das ist ein piece of cake"</strong>, meinen wir nicht nur Einfachheit – wir meinen <strong>Zugänglichkeit</strong>. Ein Kuchen wird portioniert, damit jeder Teil daran haben kann. Er ist der Inbegriff des Teilbaren.</p>
+            
+            <p>Die Redewendung entstammt dem englischen Sprachraum des 19. Jahrhunderts, als Kuchenwettbewerbe (cake walks) populär waren – simple Spiele mit süßen Belohnungen. Doch die wahre Bedeutung liegt tiefer: <strong>Ein Kuchen ist für alle da.</strong></p>
+
+            <h3>Der Satoshi als digitale Teilung</h3>
+            <p>Ein Satoshi ist <strong>0,00000001 Bitcoin</strong> – das kleinste teilbare Stück der ersten digitalen Währung. Genau wie der Kuchen wurde Bitcoin geschaffen, um geteilt zu werden. Satoshi Nakamoto programmierte die Teilbarkeit bis auf acht Dezimalstellen in das Protokoll ein.</p>
+
+            <div class="philosophy-box">
+                <p>Die Parallele ist verblüffend: Der Kuchen teilt sich in Stücke, der Bitcoin teilt sich in Satoshis. Beide ermöglichen Teilhabe unabhängig von Vermögen.</p>
+            </div>
+        </section>
+
+        <section id="philosophie" class="fade-in">
+            <h2><span class="section-number">II.</span> Die Philosophie des kleinsten Wertes</h2>
+            
+            <h3>Das Paradox des Ganzen und seiner Teile</h3>
+            <p>Ein Kuchen bleibt ein Kuchen, auch wenn er in tausend Stücke geteilt wird. Doch jedes Stück trägt die Essenz des Ganzen – das Aroma, die Zusammensetzung, die Qualität.</p>
+            
+            <p>Genauso verhält es sich mit dem Satoshi:</p>
+            <ul class="feature-list">
+                <li>Ein Bitcoin ist die Summe seiner Satoshis</li>
+                <li>Doch jeder Satoshi enthält die vollständige Integrität des Bitcoin-Protokolls</li>
+                <li>Er ist <strong>fungibel</strong>, austauschbar, gleichwertig</li>
+            </ul>
+
+            <p>Dies ist keine zufällige Analogie. Beide Konzepte – Kuchen und Satoshi – basieren auf der mathematischen Eigenschaft der <strong>Homogenität</strong>: Teile sind austauschbar mit dem Ganzen, skaliert.</p>
+
+            <h3>Die Demokratisierung des Besitzes</h3>
+            <p>Der Kuchen erzählt eine Geschichte der Gleichheit. Beim Kindergeburtstag bekommt jedes Kind ein gleich großes Stück. Niemand schaut auf den Teller des anderen.</p>
+            
+            <p>Der Satoshi erzählt die gleiche Geschichte im digitalen Zeitalter:</p>
+            <ul class="feature-list">
+                <li><strong>Teilhabe ohne Barrieren</strong>: Auch 100 Satoshi sind gültige Besitztümer</li>
+                <li><strong>Keine Diskriminierung</strong>: Das Protokoll unterscheidet nicht zwischen 1 Satoshi oder 1 Bitcoin</li>
+                <li><strong>Universelle Akzeptanz</strong>: Jede Einheit ist gleichberechtigt</li>
+            </ul>
+        </section>
+
+        <section id="semantik" class="fade-in">
+            <h2><span class="section-number">III.</span> Die semantische Verwandtschaft</h2>
+            
+            <h3>Etymologische Überraschungen</h3>
+            <p>Das Wort "Kuchen" stammt vom germanischen <em>kōkô</em>, das "Rundes, Geballtes" bedeutete. Es beschreibt etwas, das zusammengeballt, verdichtet ist.</p>
+            
+            <p>Das Wort "Satoshi" ist ein Pseudonym, doch die Einheit selbst verdichtet Wert in kleinster Form. Sie ist:</p>
+            <ul class="feature-list">
+                <li>Komprimiert (wie der Kuchenteig)</li>
+                <li>Portioniert (wie das Kuchenstück)</li>
+                <li>Konsumierbar (im Sinne von nutzbar)</li>
+            </ul>
+
+            <h3>Die Metapher des "Piece of Cake"</h3>
+            <p>Wenn etwas "a piece of cake" ist, ist es:</p>
+            <ul class="feature-list">
+                <li><strong>Einfach zu erreichen</strong> – wie ein Satoshi erschwinglich</li>
+                <li><strong>Ohne Reibung</strong> – wie eine Bitcoin-Transaktion ohne Intermediär</li>
+                <li><strong>Für jeden verfügbar</strong> – wie Open-Source-Software</li>
+            </ul>
+        </section>
+
+        <section id="mathematik" class="fade-in">
+            <h2><span class="section-number">IV.</span> Die mathematische Dimension</h2>
+            
+            <h3>Endliche versus unendliche Teilbarkeit</h3>
+            <p>Der Kuchen hat physische Grenzen. Irgendwann wird das Stück zu klein, um es zu teilen. Die Krüme ist das Minimum.</p>
+            
+            <p>Der Satoshi hat digitale Grenzen. <strong>21 Millionen Bitcoin × 100 Millionen Satoshi = 2,1 Quadrillionen Einheiten.</strong> Das ist das mathematische Maximum – programmierte Knappheit.</p>
+
+            <div class="philosophy-box">
+                <p>Doch hier liegt die Ironie: Der Kuchen ist theoretisch unendlich teilbar (mathematisch), praktisch endlich. Der Satoshi ist praktisch unendlich verfügbar (digitale Kopien), mathematisch endlich.</p>
+            </div>
+
+            <p>Sie treffen sich im Paradox des <strong>künstlichen Limits</strong>:</p>
+            <ul class="feature-list">
+                <li>Der Käufer entscheidet, wie er den Kuchen teilt</li>
+                <li>Das Protokoll entscheidet, wie Bitcoin teilbar ist</li>
+                <li>Beide erzeugen <strong>künstliche Knappheit</strong> zur Wertstabilität</li>
+            </ul>
+        </section>
+
+        <section id="kultur" class="fade-in">
+            <h2><span class="section-number">V.</span> Die kulturelle Konvergenz</h2>
+            
+            <h3>Feste und Transaktionen</h3>
+            <p>Der Kuchen ist zentral bei Geburtstagen (Neuanfang), Hochzeiten (Verbindung) und Abschlüssen (Errungenschaft). Der Satoshi ist zentral bei Mikrotransaktionen (neue Ökonomie), Lightning Network (schnelle Verbindung) und Financial Inclusion (globale Errungenschaft).</p>
+            
+            <p><strong>Beide markieren Übergänge und Austausch.</strong></p>
+
+            <h3>Das Versprechen von Süße und Wert</h3>
+            <p>Der Kuchen verspricht sensorische Befriedigung – süß, sättigend, gemeinschaftlich. Der Satoshi verspricht ökonomische Befriedigung – wertsteigernd, nutzbringend, dezentral.</p>
+        </section>
+
+        <section id="zeit" class="fade-in">
+            <h2><span class="section-number">VI.</span> Die zeitliche Dimension</h2>
+            
+            <h3>Verderblichkeit und Ewigkeit</h3>
+            <p>Der Kuchen ist vergänglich. Er wird trocken, schimmelt, verschwindet. Sein Wert ist zeitlich begrenzt.</p>
+            
+            <p>Der Satoshi ist unvergänglich. Auf der Blockchain existiert er für immer, unveränderlich, unlöschbar.</p>
+
+            <div class="philosophy-box">
+                <p>Die Verbindung: Der Kuchen lehrt uns, den Moment zu genießen. Der Satoshi lehrt uns, für die Zukunft zu planen. Beide sind notwendig für das menschliche Gleichgewicht.</p>
+            </div>
+        </section>
+
+        <section id="synthese" class="fade-in">
+            <h2><span class="section-number">VII.</span> Die Synthese: Was lehrt uns diese Verbindung?</h2>
+            
+            <h3>Das Prinzip der universellen Teilhabe</h3>
+            <p>Kuchen und Satoshi vereint ein fundamentaler Gedanke: <strong>Wert muss teilbar sein, um gerecht zu sein.</strong></p>
+            
+            <ul class="feature-list">
+                <li>Ein Kuchen, den niemand teilen darf, ist nutzlos</li>
+                <li>Ein Bitcoin, den niemand sich leisten kann, ist elitär</li>
+                <li>Beide Systeme erfordern Teilbarkeit für Demokratisierung</li>
+            </ul>
+
+            <h3>Philosophische Zwillinge</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspekt</th>
+                        <th>Kuchen</th>
+                        <th>Satoshi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Form</strong></td>
+                        <td>Physisch, greifbar</td>
+                        <td>Digital, virtuell</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teilbarkeit</strong></td>
+                        <td>Durchschneidbar</td>
+                        <td>Berechenbar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wert</strong></td>
+                        <td>Sensorisch, kurzlebig</td>
+                        <td>Ökonomisch, langfristig</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Philosophie</strong></td>
+                        <td>Gleichheit beim Teilen</td>
+                        <td>Demokratisierung von Wert</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maximum</strong></td>
+                        <td>Krüme</td>
+                        <td>2,1 Quadrillionen</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Versprechen</strong></td>
+                        <td>Sofortige Befriedigung</td>
+                        <td>Zukunftssicherung</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Fazit</h3>
+            <p>Doch ihr tiefstes gemeinsames Merkmal ist das <strong>Protokoll des Teilens</strong>:</p>
+            
+            <p>Der Kuchen funktioniert nur, wenn er geteilt wird. Der Satoshi existiert nur, weil Bitcoin teilbar sein muss. Beide widerstehen der Konzentration – sie <strong>fliehen aus der Monopolisation</strong> in die Hände Vieler.</p>
+            
+            <p>In einer Welt wachsender Ungleichheit sind Kuchen und Satoshi mehr als nur Lebensmittel oder Währungseinheiten. Sie sind <strong>Symbole einer gerechteren Ordnung</strong>, in der jeder – wirklich jeder – ein Stück abbekommt.</p>
+        </section>
+
+        <section class="epilog fade-in">
+            <h2>Epilog</h2>
+            <p>Der nächste Mal, wenn Du ein Stück Kuchen isst oder einen Satoshi sendest – erinnere Dich: Du nimmst an einem jahrtausendealten Prinzip teil. Das Prinzip, dass Wert geteilt werden muss, um wirklich wertvoll zu sein.</p>
+            <p class="final-quote">"Es ist ein piece of cake. Es ist ein piece of Satoshi. Und beides gehört Dir."</p>
+        </section>
+
+        <section id="links" class="deep-links fade-in">
+            <h2>🔗 Deep Links & Ressourcen</h2>
+            <div class="links-grid">
+                <a href="https://bitcoin.org/bitcoin.pdf" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Primärquelle</span>
+                    <h4>Das Bitcoin-Whitepaper</h4>
+                    <p>Die ursprüngliche Veröffentlichung von Satoshi Nakamoto (2008) – das Fundament der digitalen Währung</p>
+                </a>
+
+                <a href="https://mempool.space/" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Explorer</span>
+                    <h4>The Mempool Open Source Project</h4>
+                    <p>Visualisierung der Bitcoin-Blockchain in Echtzeit – jede Transaktion, jeder Block, jeder Satoshi</p>
+                </a>
+
+                <a href="https://en.wikipedia.org/wiki/Piece_of_cake" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Etymologie</span>
+                    <h4>"Piece of Cake" – Wikipedia</h4>
+                    <p>Die Geschichte der Redewendung vom 19. Jahrhundert bis heute</p>
+                </a>
+
+                <a href="https://www.etymonline.com/search?q=cake" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Linguistik</span>
+                    <h4>Online Etymology Dictionary: Cake</h4>
+                    <p>Die Wortgeschichte von *kōkô* bis zum modernen Kuchen</p>
+                </a>
+
+                <a href="https://github.com/bitcoin/bitcoin" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Code</span>
+                    <h4>Bitcoin Core Repository</h4>
+                    <p>Der Quellcode hinter dem Protokoll – wo die Teilbarkeit in Zeilen 8-16 von amount.h definiert wird</p>
+                </a>
+
+                <a href="https://timechaincalendar.com/en" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Bildung</span>
+                    <h4>Timechain Calendar</h4>
+                    <p>Lerne Bitcoin-Grundlagen interaktiv – von der Teilbarkeit bis zur Konsensmechanik</p>
+                </a>
+
+                <a href="https://en.bitcoin.it/wiki/Satoshi_(unit)" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Technisch</span>
+                    <h4>Satoshi (Unit) – Bitcoin Wiki</h4>
+                    <p>Technische Spezifikation der kleinsten Bitcoin-Einheit</p>
+                </a>
+
+                <a href="https://saifedean.com/tbs" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Literatur</span>
+                    <h4>The Bitcoin Standard</h4>
+                    <p>Saifedean Ammous' fundamentale Arbeit über hartes Geld und die digitale Zukunft</p>
+                </a>
+
+                <a href="https://www.youtube.com/watch?v=EqTjHSDNoq8" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Video</span>
+                    <h4>The Philosophy of Bitcoin</h4>
+                    <p>Robert Breedlove über die tieferen Implikationen von Knappheit und Souveränität</p>
+                </a>
+
+                <a href="https://philosophyofyum.com/" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Philosophie</span>
+                    <h4>Philosophy of Yum</h4>
+                    <p>Die tiefere Bedeutung von Essen, Teilen und Gemeinschaft</p>
+                </a>
+
+                <a href="https://stacker.news/" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Community</span>
+                    <h4>Stacker News</h4>
+                    <p>Die Bitcoin-Community diskutiert in Echtzeit – mit Satoshi-basiertem Micropayment</p>
+                </a>
+
+                <a href="https://github.com/lnbook/lnbook" class="link-card" target="_blank" rel="noopener">
+                    <span class="category">Technisch</span>
+                    <h4>Mastering the Lightning Network</h4>
+                    <p>Das Open-Source-Buch über Bitcoins Layer 2 – wo Satoshis in Millisekunden fließen</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Verfasst in präzisem Deutsch, inspiriert von der Unendlichkeit des Teilens.</p>
+        <p style="margin-top: 1rem;">Ein Projekt für <a href="https://pages.github.com/">GitHub Pages</a> 🍰 ⚡</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>
