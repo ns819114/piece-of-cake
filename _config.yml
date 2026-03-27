@@ -1,0 +1,42 @@
+# Jekyll configuration for GitHub Pages
+# This site is built as a static HTML file, but GitHub Pages uses Jekyll by default
+
+# Site settings
+title: "Piece of Cake | Die Philosophie des Teilens"
+description: "Eine philosophische Abhandlung über die fundamentale Verbindung zwischen Kuchen und dem Satoshi - der kleinsten Einheit des Bitcoin."
+url: "https://ns819114.github.io"
+baseurl: "/piece-of-cake"
+
+# Build settings
+# Disable Jekyll processing since we're using pure HTML/CSS/JS
+# This prevents Jekyll from interfering with our static files
+exclude:
+  - .gitignore
+  - .github/
+  - README.md
+  - "*.gem"
+  - Gemfile
+  - Gemfile.lock
+
+# Enable only essential plugins
+plugins: []
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+
+# SEO settings
+twitter:
+  username: 
+  card: summary_large_image
+
+# Disable Jekyll features we don't need
+future: false
+unpublished: false
+lsi: false
+safe: true
+incremental: false
+
+# GitHub Pages specific
+# Use 'false' to disable Jekyll entirely for this static site
+github: [metadata]

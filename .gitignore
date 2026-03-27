@@ -37,3 +37,11 @@ build/
 # Temporary files
 *.tmp
 *.temp
+
+# Jekyll build files
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+Gemfile.lock
+.bundle/
